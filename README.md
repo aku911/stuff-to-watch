@@ -2,6 +2,8 @@
 
 A small static site for sharing a family watchlist of IMDb links. The list is encrypted in each visitor's browser before it is downloaded and committed; GitHub Pages serves only the encrypted file.
 
+**Website:** [Our Watchlist](https://aku911.github.io/stuff-to-watch/) (available after GitHub Pages is enabled for this repository; see setup below).
+
 ## How it works
 
 - The site uses the browser's built-in Web Crypto API: AES-256-GCM encryption with a random salt and IV, and PBKDF2-SHA-256 (600,000 iterations) to derive the key from the passphrase.
