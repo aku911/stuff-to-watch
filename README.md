@@ -26,6 +26,8 @@ After the encrypted file is published, family members enter the same passphrase 
 
 Each entry can optionally include a poster image URL. The URL is included in the encrypted watchlist; after unlock, the browser loads the image directly from its host. That image host can see the browser request, so use image URLs from sources you trust. Images themselves are not copied into this repository.
 
+Each entry can also store a headline actor or lead performer. That name is part of the encrypted list and appears beside the title.
+
 ## Local preview
 
 The Web Crypto API requires a secure context. GitHub Pages provides HTTPS; for local testing, serve the repository with a local static web server rather than opening `index.html` directly. No build step or external JavaScript package is required.

@@ -161,6 +161,7 @@ function validateShows(value) {
       title: show.title.slice(0, 120),
       imdbUrl: url.href,
       note: typeof show.note === "string" ? show.note.slice(0, 240) : "",
+      leadActor: typeof show.leadActor === "string" ? show.leadActor.slice(0, 120) : "",
       imageUrl: typeof show.imageUrl === "string" ? validateImageUrl(show.imageUrl) : "",
     };
   });
@@ -260,6 +261,12 @@ function renderShows() {
     link.rel = "noopener noreferrer";
     link.textContent = show.title;
     info.append(link);
+    if (show.leadActor) {
+      const actor = document.createElement("span");
+      actor.className = "show-lead";
+      actor.textContent = `· ${show.leadActor}`;
+      info.append(actor);
+    }
     if (show.note) {
       const note = document.createElement("p");
       note.className = "show-note";
@@ -307,6 +314,34 @@ function renderShows() {
     });
     posterDetails.append(posterSummary, posterForm);
     info.append(posterDetails);
+
+    const actorDetails = document.createElement("details");
+    actorDetails.className = "actor-editor";
+    const actorSummary = document.createElement("summary");
+    actorSummary.textContent = show.leadActor ? "Change actor" : "Add headline actor";
+    const actorForm = document.createElement("form");
+    actorForm.className = "actor-form";
+    const actorInput = document.createElement("input");
+    actorInput.type = "text";
+    actorInput.name = "leadActor";
+    actorInput.maxLength = 120;
+    actorInput.placeholder = "Headline actor";
+    actorInput.setAttribute("aria-label", `Headline actor for ${show.title}`);
+    actorInput.value = show.leadActor;
+    const actorSave = document.createElement("button");
+    actorSave.type = "submit";
+    actorSave.className = "poster-save";
+    actorSave.textContent = "Save";
+    actorForm.append(actorInput, actorSave);
+    actorForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const leadActor = actorInput.value.trim();
+      shows = shows.map((entry) => entry.id === show.id ? { ...entry, leadActor } : entry);
+      renderShows();
+      setNotice("Headline actor saved in this browser’s list. Encrypt and download to share the update.");
+    });
+    actorDetails.append(actorSummary, actorForm);
+    info.append(actorDetails);
 
     const remove = document.createElement("button");
     remove.className = "remove-button";
@@ -445,6 +480,7 @@ document.querySelector("#add-form").addEventListener("submit", (event) => {
   const title = String(formData.get("title")).trim();
   const imdbUrl = String(formData.get("imdbUrl")).trim();
   const note = String(formData.get("note")).trim();
+  const leadActor = String(formData.get("leadActor")).trim();
   const imageUrl = String(formData.get("imageUrl")).trim();
 
   let parsedUrl;
@@ -468,7 +504,7 @@ document.querySelector("#add-form").addEventListener("submit", (event) => {
     return;
   }
 
-  shows.unshift({ id: crypto.randomUUID(), title, imdbUrl: parsedUrl.href, note, imageUrl: validImageUrl });
+  shows.unshift({ id: crypto.randomUUID(), title, imdbUrl: parsedUrl.href, note, leadActor, imageUrl: validImageUrl });
   form.reset();
   renderShows();
   setNotice("Added to this browser’s list. Encrypt and download to share the change.");

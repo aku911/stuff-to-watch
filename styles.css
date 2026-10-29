@@ -89,6 +89,7 @@ input:focus { border-color: #74907f; box-shadow: 0 0 0 3px rgba(83, 121, 97, .13
 .show-info { min-width: 0; flex: 1; }
 .show-title { display: inline-block; max-width: 100%; margin-bottom: 4px; overflow-wrap: anywhere; color: var(--ink); font-size: 14px; font-weight: 700; text-decoration: none; }
 .show-title:hover { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+.show-lead { display: inline; margin-left: 8px; color: #788078; font-size: 11px; font-weight: 500; }
 .show-note { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
 .poster-editor { margin-top: 6px; }
 .poster-editor summary { width: fit-content; color: #647a69; cursor: pointer; font-size: 10px; font-weight: 600; }
@@ -97,6 +98,10 @@ input:focus { border-color: #74907f; box-shadow: 0 0 0 3px rgba(83, 121, 97, .13
 .poster-help { flex-basis: 100%; color: #858b83; font-size: 10px; }
 .poster-form a { color: #536f5b; font-size: 10px; font-weight: 600; }
 .poster-save { min-height: 30px; padding: 0 10px; border: 0; border-radius: 7px; color: #fff; background: #75876c; font-size: 10px; font-weight: 700; }
+.actor-editor { margin-top: 5px; }
+.actor-editor summary { width: fit-content; color: #647a69; cursor: pointer; font-size: 10px; font-weight: 600; }
+.actor-form { display: flex; align-items: center; gap: 7px; margin-top: 7px; }
+.actor-form input { width: min(100%, 220px); min-height: 32px; font-size: 11px; }
 .remove-button { width: 34px; height: 34px; flex: 0 0 34px; border: 0; border-radius: 8px; color: #8d9189; background: transparent; font-size: 19px; }
 .remove-button:hover { color: #a54f3b; background: #fff0eb; }
 .add-card { margin-top: 17px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
