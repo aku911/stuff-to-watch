@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f3ed" />
+    <meta name="description" content="A private, shared family watchlist." />
+    <title>Our Watchlist</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Our Watchlist home"><span class="brand-mark">▰</span> together, later</a>
+        <span class="privacy-pill"><span class="privacy-dot"></span> Encrypted watchlist</span>
+      </header>
+
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">A little list for movie night</p>
+        <h1 id="page-title">Our Watchlist<span class="title-period">.</span></h1>
+        <p class="hero-copy">Good stories are even better when we watch them together.</p>
+      </section>
+
+      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+      <section id="lock-panel" class="lock-card" aria-labelledby="lock-title">
+        <div class="lock-icon" aria-hidden="true">✳</div>
+        <p class="eyebrow">Just for the family</p>
+        <h2 id="lock-title">Unlock our list</h2>
+        <p id="lock-description" class="muted">Enter the shared passphrase to see the shows and movies we’ve saved.</p>
+        <form id="unlock-form" class="unlock-form">
+          <label for="passphrase">Family passphrase</label>
+          <input id="passphrase" name="passphrase" type="password" autocomplete="current-password" minlength="12" required placeholder="At least 12 characters" />
+          <div id="confirm-wrap" class="confirm-wrap" hidden>
+            <label for="confirm-passphrase">Confirm passphrase</label>
+            <input id="confirm-passphrase" name="confirm-passphrase" type="password" autocomplete="new-password" minlength="12" placeholder="Enter it again" />
+          </div>
+          <button id="unlock-button" class="button button-primary" type="submit">Unlock watchlist <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="fine-print"><span aria-hidden="true">🔒</span> The passphrase stays in this browser and is never sent to a server.</p>
+      </section>
+
+      <section id="watchlist-panel" class="watchlist-panel" hidden aria-labelledby="list-heading">
+        <div class="list-heading-row">
+          <div>
+            <p class="eyebrow">Pick something good</p>
+            <h2 id="list-heading" tabindex="-1">On our list <span id="show-count" class="count-badge">0</span></h2>
+          </div>
+          <button id="lock-button" class="button button-quiet" type="button">Lock list</button>
+        </div>
+
+        <div id="empty-state" class="empty-state" hidden>
+          <span class="empty-sparkle" aria-hidden="true">✦</span>
+          <h3>Nothing queued up yet</h3>
+          <p>Add an IMDb link below and we’ll save it for later.</p>
+        </div>
+        <ul id="show-list" class="show-list" aria-label="Shows and movies"></ul>
+
+        <details class="add-card" open>
+          <summary><span class="plus-icon" aria-hidden="true">＋</span><span>Add to the list</span></summary>
+          <form id="add-form" class="add-form">
+            <div class="field-row">
+              <div class="field-group">
+                <label for="show-title">Title</label>
+                <input id="show-title" name="title" required maxlength="120" placeholder="e.g. The Grand Budapest Hotel" />
+              </div>
+              <div class="field-group">
+                <label for="imdb-url">IMDb link</label>
+                <input id="imdb-url" name="imdbUrl" type="url" required placeholder="https://www.imdb.com/title/..." />
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="show-note">Note <span class="optional">(optional)</span></label>
+              <input id="show-note" name="note" maxlength="240" placeholder="Who recommended it? Why should we watch?" />
+            </div>
+            <button class="button button-secondary" type="submit">Add title <span aria-hidden="true">＋</span></button>
+          </form>
+        </details>
+
+        <div class="save-card">
+          <div>
+            <p class="save-title">Ready to share your changes?</p>
+            <p class="muted save-copy">Encrypt the list and download the file to upload to GitHub.</p>
+          </div>
+          <button id="save-button" class="button button-primary" type="button">Encrypt &amp; download <span aria-hidden="true">↓</span></button>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <span>Made for the next movie night</span>
+        <span class="footer-lock">Private by design · encrypted in your browser</span>
+      </footer>
+    </main>
+  </body>
+</html>
