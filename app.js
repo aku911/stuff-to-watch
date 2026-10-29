@@ -161,8 +161,18 @@ function validateShows(value) {
       title: show.title.slice(0, 120),
       imdbUrl: url.href,
       note: typeof show.note === "string" ? show.note.slice(0, 240) : "",
+      imageUrl: typeof show.imageUrl === "string" ? validateImageUrl(show.imageUrl) : "",
     };
   });
+}
+
+function validateImageUrl(value) {
+  if (!value) return "";
+  const url = new URL(value);
+  if (url.protocol !== "https:" || url.username || url.password) {
+    throw new Error("Poster image links must use HTTPS and cannot include credentials.");
+  }
+  return url.href;
 }
 
 async function decryptWatchlist(file, passphrase) {
@@ -229,6 +239,17 @@ function renderShows() {
     icon.className = "poster-mark";
     icon.setAttribute("aria-hidden", "true");
     icon.textContent = "✦";
+    let poster = icon;
+    if (show.imageUrl) {
+      const image = document.createElement("img");
+      image.className = "poster-image";
+      image.src = show.imageUrl;
+      image.alt = `Poster for ${show.title}`;
+      image.loading = "lazy";
+      image.referrerPolicy = "no-referrer";
+      image.addEventListener("error", () => image.replaceWith(icon), { once: true });
+      poster = image;
+    }
 
     const info = document.createElement("div");
     info.className = "show-info";
@@ -246,6 +267,47 @@ function renderShows() {
       info.append(note);
     }
 
+    const posterDetails = document.createElement("details");
+    posterDetails.className = "poster-editor";
+    const posterSummary = document.createElement("summary");
+    posterSummary.textContent = show.imageUrl ? "Change poster" : "Add poster";
+    const posterForm = document.createElement("form");
+    posterForm.className = "poster-form";
+    const posterInput = document.createElement("input");
+    posterInput.type = "url";
+    posterInput.name = "imageUrl";
+    posterInput.placeholder = "Paste image address (https://…)";
+    posterInput.setAttribute("aria-label", `Poster image URL for ${show.title}`);
+    posterInput.value = show.imageUrl;
+    const posterHelp = document.createElement("span");
+    posterHelp.className = "poster-help";
+    posterHelp.textContent = "Find a poster, then copy its image address here.";
+    const searchLink = document.createElement("a");
+    searchLink.href = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(`${show.title} poster`)}`;
+    searchLink.target = "_blank";
+    searchLink.rel = "noopener noreferrer";
+    searchLink.textContent = "Find poster";
+    const posterSave = document.createElement("button");
+    posterSave.type = "submit";
+    posterSave.className = "poster-save";
+    posterSave.textContent = "Save";
+    posterForm.append(posterHelp, posterInput, searchLink, posterSave);
+    posterForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      let imageUrl;
+      try {
+        imageUrl = validateImageUrl(posterInput.value.trim());
+      } catch (error) {
+        setNotice(error.message || "Enter a valid HTTPS image URL.", true);
+        return;
+      }
+      shows = shows.map((entry) => entry.id === show.id ? { ...entry, imageUrl } : entry);
+      renderShows();
+      setNotice("Poster URL saved in this browser’s list. Encrypt and download to share the update.");
+    });
+    posterDetails.append(posterSummary, posterForm);
+    info.append(posterDetails);
+
     const remove = document.createElement("button");
     remove.className = "remove-button";
     remove.type = "button";
@@ -258,7 +320,7 @@ function renderShows() {
       setNotice("Removed from this browser’s list. Encrypt and download to share the change.");
     });
 
-    item.append(icon, info, remove);
+    item.append(poster, info, remove);
     showList.append(item);
   }
 }
@@ -383,6 +445,7 @@ document.querySelector("#add-form").addEventListener("submit", (event) => {
   const title = String(formData.get("title")).trim();
   const imdbUrl = String(formData.get("imdbUrl")).trim();
   const note = String(formData.get("note")).trim();
+  const imageUrl = String(formData.get("imageUrl")).trim();
 
   let parsedUrl;
   try {
@@ -397,7 +460,15 @@ document.querySelector("#add-form").addEventListener("submit", (event) => {
   }
   if (!title) return;
 
-  shows.unshift({ id: crypto.randomUUID(), title, imdbUrl: parsedUrl.href, note });
+  let validImageUrl = "";
+  try {
+    validImageUrl = validateImageUrl(imageUrl);
+  } catch (error) {
+    setNotice(error.message || "Enter a valid HTTPS image URL.", true);
+    return;
+  }
+
+  shows.unshift({ id: crypto.randomUUID(), title, imdbUrl: parsedUrl.href, note, imageUrl: validImageUrl });
   form.reset();
   renderShows();
   setNotice("Added to this browser’s list. Encrypt and download to share the change.");

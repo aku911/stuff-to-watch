@@ -85,10 +85,18 @@ input:focus { border-color: #74907f; box-shadow: 0 0 0 3px rgba(83, 121, 97, .13
 .show-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
 .show-item { display: flex; align-items: center; gap: 14px; padding: 15px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); box-shadow: 0 4px 13px rgba(58, 52, 40, .035); }
 .poster-mark { display: grid; flex: 0 0 42px; height: 42px; place-items: center; border-radius: 10px; color: #6f7d64; background: #edf0e7; font-size: 17px; }
+.poster-image { width: 42px; height: 58px; flex-basis: 42px; border-radius: 7px; object-fit: cover; background: #edf0e7; }
 .show-info { min-width: 0; flex: 1; }
 .show-title { display: inline-block; max-width: 100%; margin-bottom: 4px; overflow-wrap: anywhere; color: var(--ink); font-size: 14px; font-weight: 700; text-decoration: none; }
 .show-title:hover { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
 .show-note { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
+.poster-editor { margin-top: 6px; }
+.poster-editor summary { width: fit-content; color: #647a69; cursor: pointer; font-size: 10px; font-weight: 600; }
+.poster-form { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: 7px; }
+.poster-form input { width: min(100%, 300px); min-height: 32px; font-size: 11px; }
+.poster-help { flex-basis: 100%; color: #858b83; font-size: 10px; }
+.poster-form a { color: #536f5b; font-size: 10px; font-weight: 600; }
+.poster-save { min-height: 30px; padding: 0 10px; border: 0; border-radius: 7px; color: #fff; background: #75876c; font-size: 10px; font-weight: 700; }
 .remove-button { width: 34px; height: 34px; flex: 0 0 34px; border: 0; border-radius: 8px; color: #8d9189; background: transparent; font-size: 19px; }
 .remove-button:hover { color: #a54f3b; background: #fff0eb; }
 .add-card { margin-top: 17px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
@@ -99,6 +107,7 @@ input:focus { border-color: #74907f; box-shadow: 0 0 0 3px rgba(83, 121, 97, .13
 .field-row { display: grid; grid-template-columns: 1fr 1.2fr; gap: 12px; }
 .field-group { display: grid; gap: 7px; }
 .field-group input { min-height: 40px; font-size: 12px; }
+.field-help { margin: -2px 0 0; color: #858b83; font-size: 10px; line-height: 1.45; }
 .optional { color: #9a9e97; font-weight: 400; }
 .button-secondary { justify-self: start; color: #fff; background: #75876c; }
 .button-secondary:hover { background: #5f7659; }
