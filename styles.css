@@ -56,12 +56,16 @@ input { width: 100%; min-height: 45px; padding: 0 13px; border: 1px solid #deddd
 input::placeholder { color: #a4a8a2; }
 input:focus { border-color: #74907f; box-shadow: 0 0 0 3px rgba(83, 121, 97, .13); }
 .confirm-wrap { display: grid; gap: 10px; margin-top: 2px; }
+.remember-option { display: flex; align-items: center; gap: 9px; margin-top: 4px; cursor: pointer; }
+.remember-option input { width: 16px; min-height: 16px; height: 16px; margin: 0; accent-color: var(--green); }
+.remember-help { margin: -4px 0 0 25px; color: #858b83; font-size: 10px; line-height: 1.5; }
 .button { min-height: 43px; padding: 0 17px; border: 0; border-radius: 9px; font-size: 12px; font-weight: 700; transition: background .16s, transform .16s, box-shadow .16s; }
 .button:hover { transform: translateY(-1px); }
 .button:focus-visible { outline: 3px solid rgba(83, 121, 97, .3); outline-offset: 2px; }
 .button-primary { display: inline-flex; align-items: center; justify-content: center; gap: 13px; color: #fff; background: var(--green); }
 .button-primary:hover { background: var(--green-dark); box-shadow: 0 5px 13px rgba(41, 72, 59, .16); }
 .unlock-form .button { margin-top: 5px; }
+.forget-device { margin-top: 12px; }
 .fine-print { margin: 19px 0 0; color: #838a83; font-size: 10px; }
 .fine-print span { margin-right: 4px; }
 .notice { width: min(100%, 470px); margin: -9px auto 18px; padding: 11px 14px; border: 1px solid #ead2c4; border-radius: 9px; color: #80513d; background: #fff8f2; font-size: 12px; line-height: 1.5; }

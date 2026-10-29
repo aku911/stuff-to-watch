@@ -36,8 +36,14 @@
             <label for="confirm-passphrase">Confirm passphrase</label>
             <input id="confirm-passphrase" name="confirm-passphrase" type="password" autocomplete="new-password" minlength="12" placeholder="Enter it again" />
           </div>
+          <label class="remember-option" for="remember-device">
+            <input id="remember-device" name="remember-device" type="checkbox" />
+            <span>Remember this browser on this device</span>
+          </label>
+          <p class="remember-help">Saves a device-only decryption key in this browser profile so refreshes can reopen the list. Anyone using this profile may be able to access it.</p>
           <button id="unlock-button" class="button button-primary" type="submit">Unlock watchlist <span aria-hidden="true">→</span></button>
         </form>
+        <button id="forget-device" class="button button-quiet forget-device" type="button" hidden>Forget this browser</button>
         <p class="fine-print"><span aria-hidden="true">🔒</span> The passphrase stays in this browser and is never sent to a server.</p>
       </section>
 

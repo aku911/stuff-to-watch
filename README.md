@@ -7,7 +7,8 @@ A small static site for sharing a family watchlist of IMDb links. The list is en
 ## How it works
 
 - The site uses the browser's built-in Web Crypto API: AES-256-GCM encryption with a random salt and IV, and PBKDF2-SHA-256 (600,000 iterations) to derive the key from the passphrase.
-- The passphrase and decrypted list stay in browser memory. They are never uploaded or saved in browser storage.
+- By default, the passphrase and decrypted list stay in browser memory. They are never uploaded or saved in browser storage. The optional **Remember this browser** setting stores a non-extractable decryption key in that browser profile's IndexedDB, not the passphrase or show list; it is tied to the exact encrypted file currently published.
+- Remembering a device is convenient but less private on a shared account or computer: someone who can use that browser profile may be able to unlock the list. Use **Forget this browser** on the lock screen or clear the site's browser data to remove its saved key.
 - The encrypted file, `shows.enc.json`, is public if the repository/site is public. Its contents are not readable without the family passphrase.
 - This is client-side encryption, not a private hosting service. Use a long, unique passphrase and share it with family separately (not in the repository or alongside the encrypted file). Anyone with the file can attempt guesses offline.
 - Do not commit an unencrypted export or put the passphrase in the site code. Replacing the encrypted file does not erase older encrypted versions from Git history.
