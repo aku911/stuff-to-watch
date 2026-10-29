@@ -1,0 +1,10 @@
+{
+  "format": "family-watchlist",
+  "version": 1,
+  "cipher": "AES-256-GCM",
+  "kdf": "PBKDF2-SHA-256",
+  "iterations": 600000,
+  "salt": "Yzoz6nh3d5Bu7brufJ/OHQ==",
+  "iv": "0AwxUcGfmP04wT2z",
+  "ciphertext": "bVxf2DczOjo7GyZbIfmZYsohSj8NlzazDEVrng=="
+}
